@@ -1,25 +1,30 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import connectDB from './util/connectDB.js'
-import { errorHandler, notFound } from './middleware/errorMiddleware.js'
+import express from 'express';
+import dotenv from 'dotenv';
+import connectDB from './util/connectDB.js';
+import { errorHandler, notFound } from './middleware/errorMiddleware.js';
 
-dotenv.config()
+dotenv.config();
 
-connectDB()
+connectDB();
 
-const app = express()
+const app = express();
 
-app.get('/', (req, res) => res.send('Hello World!'))
+app.get('/', (req, res) => res.send('Hello World!'));
+
+app.get('/:a/:b', (req, res) => {
+  const { a, b } = req.params;
+  res.send(`${a} + ${b} = ${parseInt(a) + parseInt(b)}`);
+});
 
 // handle json body
-app.use(express.json())
+app.use(express.json());
 
 // handle 404
-app.use(notFound)
+app.use(notFound);
 
 // handle 500
-app.use(errorHandler)
+app.use(errorHandler);
 
-const PORT = process.env.PORT || 4000
+const PORT = process.env.PORT || 4000;
 
-app.listen(PORT)
+app.listen(PORT);
