@@ -2,6 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 import connectDB from './util/connectDB.js';
 import { errorHandler, notFound } from './middleware/errorMiddleware.js';
+import restaurantRoutes from './routes/restaurantRoutes.js';
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ app.get('/:a/:b', (req, res) => {
 
 // handle json body
 app.use(express.json());
+
+// handle routes
+app.use('/api/restaurants', restaurantRoutes);
 
 // handle 404
 app.use(notFound);
